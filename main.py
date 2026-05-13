@@ -23,7 +23,10 @@ class SimplexSolver:
 
     def build_initial_algebraic_table(self):
         p = self.problem
-        eq_idx = p.signs.index('=')
+        try:
+            eq_idx = p.signs.index('=')
+        except ValueError:
+            eq_idx = 0
 
         candidates = [j for j in range(len(p.var_names)) if abs(p.A[eq_idx, j]) > EPS]
         if not candidates:
