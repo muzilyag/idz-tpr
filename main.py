@@ -304,7 +304,8 @@ def get_input_parsed():
                 break
 
     num_vars = max(all_indices) if all_indices else 0
-
+    non_neg_indices.update(range(1, num_vars + 1))
+    
     print("\nИСХОДНАЯ ЗАДАЧА")
     print(f"Целевая функция: F({mode}) = {f_line.split('->')[0].replace('F=', '').strip()}")
     print("Ограничения:")
@@ -321,15 +322,18 @@ def get_input_parsed():
     curr_idx = 0
 
     for i in range(1, num_vars + 1):
-        if i in non_neg_indices:
-            var_map[i] = [curr_idx]
-            new_var_names.append(f"x{i}")
-            curr_idx += 1
-        else:
-            var_map[i] = [curr_idx, curr_idx + 1]
-            new_var_names.append(f"x{i}_pos")
-            new_var_names.append(f"x{i}_neg")
-            curr_idx += 2
+        # if i in non_neg_indices:
+        #     var_map[i] = [curr_idx]
+        #     new_var_names.append(f"x{i}")
+        #     curr_idx += 1
+        # else:
+        #     var_map[i] = [curr_idx, curr_idx + 1]
+        #     new_var_names.append(f"x{i}_pos")
+        #     new_var_names.append(f"x{i}_neg")
+        #     curr_idx += 2
+        var_map[i] = [curr_idx]
+        new_var_names.append(f"x{i}")
+        curr_idx += 1 
 
     new_num_vars = len(new_var_names)
     new_c = [0.0] * new_num_vars
